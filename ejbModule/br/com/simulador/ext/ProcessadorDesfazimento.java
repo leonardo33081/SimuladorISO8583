@@ -1,13 +1,20 @@
 package br.com.simulador.ext;
 
-import org.jpos.iso.ISOMsg;
+import javax.persistence.EntityManager;
 
-import br.com.simulador.bean.DesfazimentoBean;
+import br.com.simulador.client.ITransacao;
+import br.com.simulador.persistencia.DAOTransacao;
 
-public class ProcessadorDesfazimento {
+public class ProcessadorDesfazimento implements IProcessador{
+	EntityManager em;
+	public ProcessadorDesfazimento(ITransacao trx, EntityManager em) {
+		System.out.println("Processador criado..." + trx.getClass().getName());
+		this.em = em;
+	}
 
-	public ProcessadorDesfazimento(DesfazimentoBean d){
-		ISOMsg iso = new ISOMsg();
-		System.out.println("Processador criado..." + d.getClass().getName());
+	@Override
+	public void processar() {
+		DAOTransacao dao = new DAOTransacao(em);
+		
 	}
 }

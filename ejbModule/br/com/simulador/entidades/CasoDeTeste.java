@@ -20,12 +20,12 @@ public class CasoDeTeste implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)//AUTO
 	@Column(name="idcaso_de_teste")
 	private int idcasoDeTeste;
 
-	@Column(name="caso_de_testecol")
-	private String casoDeTestecol;
+	@Column(name="caso_de_teste")
+	private String casoDeTeste;
 
 	private String descricao;
 
@@ -56,11 +56,11 @@ public class CasoDeTeste implements Serializable {
 	}
 
 	public String getCasoDeTestecol() {
-		return this.casoDeTestecol;
+		return this.casoDeTeste;
 	}
 
-	public void setCasoDeTestecol(String casoDeTestecol) {
-		this.casoDeTestecol = casoDeTestecol;
+	public void setCasoDeTestecol(String casoDeTeste) {
+		this.casoDeTeste = casoDeTeste;
 	}
 
 	public String getDescricao() {
@@ -115,6 +115,14 @@ public class CasoDeTeste implements Serializable {
 		transacao.setCasoDeTeste(null);
 
 		return transacao;
+	}
+
+	@Override
+	public String toString() {
+		return "CasoDeTeste [idcasoDeTeste=" + idcasoDeTeste + ", casoDeTeste="
+				+ casoDeTeste + ", descricao=" + descricao + ", dtInclusao="
+				+ dtInclusao + ", nome=" + nome + ", configuracao="
+				+ configuracao + ", transacaos=" + transacaos + "]";
 	}
 
 }

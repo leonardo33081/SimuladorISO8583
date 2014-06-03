@@ -23,7 +23,7 @@ public class Configuracao implements Serializable {
 
 	private String channel;
 
-	private String configuracaocol;
+	private String configuracao;
 
 	@Column(name="desc_config")
 	private String descConfig;
@@ -69,12 +69,12 @@ public class Configuracao implements Serializable {
 		this.channel = channel;
 	}
 
-	public String getConfiguracaocol() {
-		return this.configuracaocol;
+	public String getConfiguracao() {
+		return this.configuracao;
 	}
 
-	public void setConfiguracaocol(String configuracaocol) {
-		this.configuracaocol = configuracaocol;
+	public void setConfiguracao(String configuracao) {
+		this.configuracao = configuracao;
 	}
 
 	public String getDescConfig() {
@@ -138,6 +138,16 @@ public class Configuracao implements Serializable {
 		casoDeTeste.setConfiguracao(this);
 
 		return casoDeTeste;
+	}
+
+	@Override
+	public String toString() {
+		return "Configuracao [idconfiguracao=" + idconfiguracao
+				+ ", casoDeTeste=" + casoDeTeste + ", channel=" + channel
+				+ ", configuracao=" + configuracao + ", descConfig="
+				+ descConfig + ", host=" + host + ", packager=" + packager
+				+ ", path=" + path + ", porta=" + porta + ", timeout="
+				+ timeout + ", casoDeTestes=" + casoDeTestes + "]";
 	}
 
 	public CasoDeTeste removeCasoDeTeste(CasoDeTeste casoDeTeste) {

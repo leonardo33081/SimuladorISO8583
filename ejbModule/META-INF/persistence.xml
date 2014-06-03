@@ -4,14 +4,17 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="persistenciaISO" transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<!-- <jta-data-source>java:jboss/datasources/simulador</jta-data-source>-->
 		<jta-data-source>java:jboss/datasources/simulador</jta-data-source>
 		<class>br.com.simulador.entidades.CasoDeTeste</class> 
 		<class>br.com.simulador.entidades.Configuracao</class>
 		<class>br.com.simulador.entidades.Transacao</class>
+		<class>br.com.simulador.entidades.TipoTransacao</class>
 		
 		<properties> 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="false" />
+           <!-- <property name="hibernate.hbm2ddl.auto" value="create" />-->
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
         </properties>

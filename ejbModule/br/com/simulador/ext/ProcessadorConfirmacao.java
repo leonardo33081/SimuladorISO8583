@@ -1,13 +1,20 @@
 package br.com.simulador.ext;
 
-import org.jpos.iso.ISOMsg;
+import javax.persistence.EntityManager;
 
-import br.com.simulador.bean.ConfirmacaoBean;
+import br.com.simulador.client.ITransacao;
+import br.com.simulador.persistencia.DAOTransacao;
 
-public class ProcessadorConfirmacao {
+public class ProcessadorConfirmacao implements IProcessador{
+	EntityManager em;
+	public ProcessadorConfirmacao(ITransacao trx, EntityManager em) {
+		System.out.println("Processador criado..." + trx.getClass().getName());
+		this.em = em;
+	}
 
-	public ProcessadorConfirmacao(ConfirmacaoBean c){
-		ISOMsg iso = new ISOMsg();
-		System.out.println("Processador criado..." + c.getClass().getName());
+	@Override
+	public void processar() {
+		DAOTransacao dao = new DAOTransacao(em);
+		
 	}
 }

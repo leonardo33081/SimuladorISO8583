@@ -5,24 +5,32 @@ import java.util.Map;
 import javax.ejb.PostActivate;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import br.com.simulador.client.DesfazimentoRemote;
-import br.com.simulador.entidades.Transacao;
-import br.com.simulador.ext.ProcessadorConfirmacao;
-import br.com.simulador.ext.ProcessadorDesfazimento;
+import br.com.simulador.exception.NotSupportedTransactionException;
+import br.com.simulador.ext.IProcessador;
+import br.com.simulador.ext.Processador;
 @Stateless
 @Remote(DesfazimentoRemote.class)
 public class DesfazimentoBean implements DesfazimentoRemote {
-
-	ProcessadorDesfazimento procDesfazimento;
+	@PersistenceContext(unitName="persistenciaISO")
+    private EntityManager em;
+	IProcessador proc;
 	@PostActivate
 	private void initProcessadorDesfazimento(){
 		System.out.println("Contruindo processador de desfazimento...");
-		procDesfazimento = new ProcessadorDesfazimento(this);
+		try {
+			proc = new Processador(this).getInstance(em);
+		} catch (NotSupportedTransactionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean desfazer() {
-		// TODO Auto-generated method stub
+		proc.processar();
 		return true;
 	}
 

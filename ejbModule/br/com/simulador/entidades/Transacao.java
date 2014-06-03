@@ -1,6 +1,7 @@
 package br.com.simulador.entidades;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,7 +11,11 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Transacao.findAll", query="SELECT t FROM Transacao t")
+
+@Table(name = "transacao")
+@NamedQueries({
+	@NamedQuery(name="Transacao.findAll", query="SELECT t FROM Transacao t")
+})
 public class Transacao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +40,22 @@ public class Transacao implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idcaso_de_teste")
 	private CasoDeTeste casoDeTeste;
+	
+	@ManyToOne
+	@JoinColumn(name="idtipo_transacao")
+	private TipoTransacao tipoTransacao;
+	
+	public TipoTransacao getTipoTransacao() {
+		return tipoTransacao;
+	}
+
+	public void setTipoTransacao(TipoTransacao tipoTransacao) {
+		this.tipoTransacao = tipoTransacao;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public Transacao() {
 	}
@@ -85,6 +106,14 @@ public class Transacao implements Serializable {
 
 	public void setCasoDeTeste(CasoDeTeste casoDeTeste) {
 		this.casoDeTeste = casoDeTeste;
+	}
+
+	@Override
+	public String toString() {
+		return "Transacao [idtransacao=" + idtransacao + ", difTempoInOut="
+				+ difTempoInOut + ", dtInclusao=" + dtInclusao + ", msgIsoIn="
+				+ msgIsoIn + ", msgIsoOut=" + msgIsoOut + ", casoDeTeste="
+				+ casoDeTeste + ", tipoTransacao=" + tipoTransacao + "]";
 	}
 
 }

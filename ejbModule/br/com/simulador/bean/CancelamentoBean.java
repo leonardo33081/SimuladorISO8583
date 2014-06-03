@@ -5,24 +5,31 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import br.com.simulador.client.CancelamentoRemote;
-import br.com.simulador.entidades.Transacao;
-import br.com.simulador.ext.ProcessadorAutorizacao;
-import br.com.simulador.ext.ProcessadorCancelamento;
+import br.com.simulador.exception.NotSupportedTransactionException;
+import br.com.simulador.ext.IProcessador;
+import br.com.simulador.ext.Processador;
 @Stateless
 @Remote(CancelamentoRemote.class)
 public class CancelamentoBean implements CancelamentoRemote {
-
-	
-	ProcessadorCancelamento procCancel;
+	@PersistenceContext(unitName="persistenciaISO")
+    private EntityManager em;
+	IProcessador proc;
 	@PostConstruct
-	private void initProcessadorCancelamento(){
+	private void initProcessador(){
 		System.out.println("Contruindo processador de cancelamento...");
-		procCancel = new ProcessadorCancelamento(this);
+		try {
+			proc = new Processador(this).getInstance(em);
+		} catch (NotSupportedTransactionException e) {
+			e.printStackTrace();
+		}
 	}
 	public boolean cancelar() {
-		// TODO Auto-generated method stub
+		// usar o proc
+		proc.processar();
 		return true;
 	}
 
